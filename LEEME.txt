@@ -1,0 +1,90 @@
+PLANO INTERACTIVO DE SALTO — 13/10/2026
+
+Abrir plano_interactivo_salto.html en un navegador. Las capas de escenarios,
+el plano de riesgo y las consultas de terreno están incluidos en el archivo.
+El visor utiliza el plano incluido como base y funciona sin internet. No hay que instalar software.
+
+CONTENIDO
+- 129 escenarios de lectura local del río Uruguay: 5,2 a 18 m, cada 0,1 m.
+  El paso del selector no significa precisión topográfica de 0,1 m.
+- Plano de riesgo original con superposición y transparencia ajustable.
+- Consulta al hacer clic: altura del terreno y diferencia nominal con el agua.
+- Fuentes, método, limitaciones y leyenda dentro del visor.
+- terreno_salto_analisis.tif: terreno derivado, EPSG:4326, 1200 × 1200 celdas.
+- superficies_por_nivel.csv: áreas de celdas de MDT dentro del recorte analizado.
+  No son áreas exclusivamente urbanas ni superficies de viviendas afectadas.
+
+DATOS Y REFERENCIAS
+Imagen suministrada: A1__MAPA_DE_RIESGO_200dpi.jpeg, 6622 × 4826 píxeles.
+El propio plano indica altura oficial = altura local + 1,10 m; cero oficial
+referido al nivel medio del mar en Montevideo. Se encuentra marcado «en proceso».
+
+MDT IDE Uruguay: hojas P10B6, P10B3, O10A4, O10A1, O10C1, O10C4, P10D6, P10D3,
+remesa 10, levantamiento 2017–2018. Resolución original: 2,5 m. Referencia de
+las cotas: EGM2008 (EPSG:3855). CRS horizontal original: EPSG:5382.
+https://catalogodatos.gub.uy/dataset/ide-ortoimagen-mdt-de-cobertura-nacional/resource/e33f0906-3b82-4a98-ad83-c9862eb5e86e
+Metadatos consultados:
+https://visualizador.ide.uy/geonetwork/srv/api/records/62a392f5-c883-634e-9f6e-de66cb8cfce8/formatters/xml
+Exactitud publicada: vertical 1,5 m y horizontal 1,0 m al 95 % de confianza.
+
+El enlace topographic-map.com aportado se conserva como referencia visual;
+no se extrajeron sus valores ni se utilizó como modelo numérico de terreno.
+Cartografía de calles y controles: OpenStreetMap contributors, ODbL.
+Visor cartográfico: Leaflet 1.9.4, licencia BSD-2-Clause.
+
+MÉTODO
+Recorte: longitud -58,035 a -57,900; latitud -31,460 a -31,340.
+Reproyección bilineal a grilla 1200 × 1200 (~10,7 × 11,1 m).
+Se clasifican celdas con z <= H local + 1,10. La igualdad entre EGM2008 y el
+cero oficial se ASUME para esta exploración: no está verificada mediante
+un punto nivelado o una transformación vertical local. Es necesario calibrarla
+antes de considerar los contornos como límites de inundación por lectura del río.
+
+Se etiquetan componentes conectados por lados (4 vecinos). Se seleccionan
+los que tocan el borde occidental válido del MDT o una transición de ausencia
+de datos a terreno en la mitad occidental del recorte. Este borde actúa como
+semilla fluvial aproximada; no es una ribera vectorial ni una simulación hidráulica.
+Las celdas sin datos no cuentan como superficie ni como terreno inundado.
+Las depresiones bajo la cota sin esa conexión se muestran opcionalmente rayadas.
+Áreas calculadas con aproximación de área de celda a la latitud central.
+
+Georreferenciación manual afín del plano, utilizando cuatro cruces:
+Píxel X,Y / longitud,latitud
+2190,2333 / -57,9725263,-31,3879240 (Colón–Artigas)
+2173,2573 / -57,9729995,-31,3912245 (Colón–Cervantes)
+2535,2369 / -57,9669585,-31,3885975 (Sarandí–Artigas)
+2499,2618 / -57,9675595,-31,3919699 (Sarandí–Cervantes)
+Residuos de ajuste: 4,61; 4,85; 4,40; 4,64 m.
+Estos residuos son internos al ajuste, no una validación independiente.
+Controles concentrados en el centro: incertidumbre mayor en los extremos.
+Las clases de riesgo se conservan como imagen; no se infieren de la altura
+ni se digitalizan como polígonos oficiales.
+
+VALIDACIÓN
+Se comprobó que las superficies conectadas de cada escenario están contenidas
+en el escenario siguiente. Se validó la sintaxis del visor y se comprobaron
+en navegador los cambios de nivel (10, 11 y 20 m) y la vista completa.
+
+ALCANCE
+Resultado exploratorio. Falta validar referencia vertical, georreferenciación
+con controles distribuidos, ribera y continuidad hidráulica. No reproduce
+caudales, velocidades, pendiente longitudinal del río, drenaje urbano,
+lluvias, alcantarillas ni defensas. No permite garantizar inundabilidad de
+un padrón, vivienda o calle. La imagen de riesgo reconoce omisiones para
+cañadas, drenaje pluvial y parte de las cuencas de los arroyos Ceibal y Sauzal.
+
+ACTUALIZACIÓN: Se retiró la capa remota de calles que mostraba el aviso Access blocked.
+
+
+BASE DE CALLES: Se incluye cartografía vectorial simplificada de OpenStreetMap
+(c) OpenStreetMap contributors, ODbL. Descargada el 13/10/2026, recorte de Salto.
+La base funciona sin internet. El enlace Google Maps abre un mapa aparte y requiere
+internet. La opacidad inicial del plano de riesgo es 25 %, para ver las calles debajo.
+El botón Ver solo calles oculta las capas de riesgo y escenarios.
+
+CALIDAD DEL PLANO: La capa georreferenciada utiliza una imagen de alta resolución,
+con píxeles de aproximadamente 1,4 m para conservar el detalle del JPEG original.
+El original de 6622 x 4826 permanece incluido. La grilla de cálculo de inundación
+no cambia. El botón Ver plano nítido pone el plano al 100 % y oculta otras capas.
+En la vista del original, Tamaño original permite leer los detalles sin reducción.
+La opacidad inicial pasa al 70 %; mayor resolución no mejora la exactitud geográfica.
